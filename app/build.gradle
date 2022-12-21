@@ -1,0 +1,82 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.example.spacex'
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.example.spacex"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    packagingOptions{
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+dependencies {
+
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.5.0'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // dagger hilt
+    implementation 'com.google.dagger:hilt-android:2.43.2'
+    kapt 'com.google.dagger:hilt-android-compiler:2.43.2'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
+
+    // splash
+    implementation("androidx.core:core-splashscreen:1.0.0")
+
+
+    implementation "androidx.fragment:fragment-ktx:1.5.2"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+
+
+    // test
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    testImplementation "org.mockito:mockito-core:3.10.0"
+    androidTestImplementation "org.mockito:mockito-android:3.10.0"
+    testImplementation("org.mockito:mockito-inline:2.28.2") { exclude group: 'org.jetbrains.kotlin' }
+    testImplementation("com.nhaarman:mockito-kotlin:1.6.0") { exclude group: 'org.jetbrains.kotlin' }
+
+}
